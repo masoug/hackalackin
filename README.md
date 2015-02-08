@@ -1,0 +1,3 @@
+# Hackalackin
+
+Just an experimental idea about having a centralized hacking database. Similar to CommonHack I guess....
