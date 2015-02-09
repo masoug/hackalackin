@@ -2,6 +2,8 @@ from flask import Flask, render_template, redirect, request, url_for
 from functools import wraps
 from google.appengine.api import users
 
+from forms import ProfileEditBasicForm
+
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -32,6 +34,21 @@ def profile():
     # TODO: in real life; use the user's supplied profile info
     return render_template("profile.html", user=users.get_current_user(),
                            logout_url=users.create_logout_url(url_for("index")))
+
+
+@app.route("/profile/edit/basic/", methods=["POST", "GET"])
+@login_required
+def profile_edit_basic():
+    if request.method == "POST":
+        # validate and write new data
+        form = ProfileEditBasicForm(request.form)
+        return str(form.validate())
+    else:
+        # pre-populate existing fields
+        form = ProfileEditBasicForm()
+        form.email.data = "masoug@penismail.edu"
+        return render_template("profile_edit_basic.html",
+                               form=form)
 
 @app.errorhandler(404)
 def page_not_found(e):

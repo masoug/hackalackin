@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Edit Profile</title>
+
+<!-- Custom styles for this template -->
+<link href="/static/css/starter-template.css" rel="stylesheet">
+{% endblock %}
+
+{% block login_nav %}
+<li><a href="/">Home</a></li>
+<li><a href="/profile/">Profile</a></li>
+<li><a href="{{ logout_url }}">Logout</a></li>
+{% endblock %}
+
+{% block container %}
+
+<div class="page-header">
+  <h1>
+    Edit Basic Profile
+  </h1>
+</div>
+
+<p>Tell us a little about yourself!</p>
+<form class="form-horizontal" action="/profile/edit/basic/" method="POST">
+  {% for f in form %}
+  <div class="form-group">
+    {{ f.label(class="col-sm-2 control-label") }}
+    <div class="col-sm-10">
+      {% if f.type == "RadioField" %}
+        {% for value, label, _ in f.iter_choices() %}
+          <div class="radio">
+            <label>
+                <input type="radio" name="{{ f.id }}" id="{{ f.id }}" value="{{ value }}">{{ label }}
+            </label>
+          </div>
+        {% endfor %}
+      {% else %}
+      {{ f(class="form-control") }}
+      {% endif %}
+      <span id="helpBlock" class="help-block">
+        {% if f.flags.required %}<span class="text-danger">Required</span>{% endif %}
+        {{ f.description }}
+      </span>
+    </div>
+  </div>
+  {% endfor %}
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-success">Update</button>
+    </div>
+  </div>
+</form>
+
+{% endblock %}
