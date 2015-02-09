@@ -1,6 +1,8 @@
+from flask import Flask, render_template, redirect, request, url_for
 from functools import wraps
 from google.appengine.api import users
-from flask import Flask, render_template, redirect, request
+
+
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
@@ -18,23 +20,20 @@ def login_required(func):
 
 @app.route("/")
 def index():
-    if not users.get_current_user():
-        return render_template("index.html")
-    else:
-        return redirect("/profile/")
+    # TODO: In reality; query HackerProfile to get user nickname
+    return render_template("index.html", user=users.get_current_user(),
+                           login_url=users.create_login_url(url_for("index")),
+                           logout_url=users.create_logout_url(url_for("index")))
 
-@app.route('/profile/')
+
+@app.route("/profile/")
 @login_required
 def profile():
-    return render_template("profile.html",
-                           user=users.get_current_user(),
-                           logout_url=users.create_logout_url("/"))
-
-@app.route("/profile/new/")
-def profile_new():
-    return "So you want to make a new profile?"
+    # TODO: in real life; use the user's supplied profile info
+    return render_template("profile.html", user=users.get_current_user(),
+                           logout_url=users.create_logout_url(url_for("index")))
 
 @app.errorhandler(404)
 def page_not_found(e):
     """Return a custom 404 error."""
-    return 'Sorry, nothing at this URL.', 404
+    return render_template("404.html"), 404
