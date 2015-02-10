@@ -14,7 +14,7 @@
 
 {% block container %}
 <div class="page-header">
-<h1>{{ user.nickname() | e }} <small>Profile Settings</small></h1>
+<h1>{{ user.nickname | default(user.first_name, True) | e }} <small>Profile Settings</small></h1>
 </div>
 
 <!-- Basic info -->
@@ -25,31 +25,38 @@
   </div>
   <div class="col-md-10">
     <div class="row">
-      <div class="col-md-2"><strong>Full Name</strong></div><div class="col-md-10">John Smith Doe</div>
+      <div class="col-md-2">
+        <strong>Full Name</strong>
+      </div>
+      <div class="col-md-10">
+        {{ user.first_name | default("", True) | e }}
+        {{ user.middle_name | default("", True) | e }}
+        {{ user.last_name | default("", True) | e }}
+      </div>
     </div>
     <div class="row">
-      <div class="col-md-2"><strong>Nickname</strong></div><div class="col-md-10">JSDoe</div>
+      <div class="col-md-2"><strong>Nickname</strong></div><div class="col-md-10">{{ user.nickname | default("???", True) | e }}</div>
     </div>
     <div class="row">
-      <div class="col-md-2"><strong>Gender</strong></div><div class="col-md-10">Male/Female/Other</div>
+      <div class="col-md-2"><strong>Gender</strong></div><div class="col-md-10">{{ user.gender | default("???", True) | e }}</div>
     </div>
     <div class="row">
-      <div class="col-md-2"><strong>Email</strong></div><div class="col-md-10">{{ user.email() | e }}</div>
+      <div class="col-md-2"><strong>Email</strong></div><div class="col-md-10">{{ user.email | e }}</div>
     </div>
     <div class="row">
-      <div class="col-md-2"><strong>Occupation</strong></div><div class="col-md-10">Student/Employee</div>
+      <div class="col-md-2"><strong>Occupation</strong></div><div class="col-md-10">{{ user.occupation | default("???", True) | e }}</div>
     </div>
     <div class="row">
-      <div class="col-md-2"><strong>Affiliation</strong></div><div class="col-md-10">School (class of 2017)/Company</div>
+      <div class="col-md-2"><strong>Affiliation</strong></div><div class="col-md-10">{{ user.affiliation | default("???", True) | e }}</div>
     </div>
     <div class="row">
-      <div class="col-md-2"><strong>Field</strong></div><div class="col-md-10">Tech/Business/Management</div>
+      <div class="col-md-2"><strong>Field</strong></div><div class="col-md-10">{{ user.field | default("???", True) | e }}</div>
     </div>
     <div class="row">
-      <div class="col-md-2"><strong>Location</strong></div><div class="col-md-10">Santa Barbara, California</div>
+      <div class="col-md-2"><strong>Location</strong></div><div class="col-md-10">{{ user.location | default("Planet Earth", True) | e }}</div>
     </div>
     <div class="row">
-      <div class="col-md-2"><strong>Hackathons</strong></div><div class="col-md-10">LA Hacks, SB Hacks, CAL Hacks, etc...</div>
+      <div class="col-md-2"><strong>Hackathons</strong></div><div class="col-md-10">{{ user.hackathons | default("???", True) | e }}</div>
     </div>
   </div>
 </div>

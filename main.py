@@ -3,6 +3,7 @@ from functools import wraps
 from google.appengine.api import users
 
 from forms import ProfileEditBasicForm
+from models import User, populate_entity, populate_form
 
 
 app = Flask(__name__)
@@ -32,7 +33,10 @@ def index():
 @login_required
 def profile():
     # TODO: in real life; use the user's supplied profile info
-    return render_template("profile.html", user=users.get_current_user(),
+    user = User.all().filter("user_id =", users.get_current_user().user_id()).get()
+    if not user:
+        return redirect(url_for("profile_edit_basic"))
+    return render_template("profile.html", user=user,
                            logout_url=users.create_logout_url(url_for("index")))
 
 
@@ -42,11 +46,28 @@ def profile_edit_basic():
     if request.method == "POST":
         # validate and write new data
         form = ProfileEditBasicForm(request.form)
-        return str(form.validate())
+        if not form.validate():
+            return render_template("profile_edit_basic.html", form=form)
+
+        # get user
+        user = User.all().filter("user_id =", users.get_current_user().user_id()).get()
+        if not user:
+            # setup new user object
+            user = User(user_id=users.get_current_user().user_id(),
+                        email=form.email.data, first_name=form.first_name.data,
+                        last_name=form.last_name.data)
+
+        populate_entity(form, user, User)
+        user.put()
+        return render_template("profile_edit_basic.html", form=form, update_success=True)
     else:
         # pre-populate existing fields
         form = ProfileEditBasicForm()
-        form.email.data = "masoug@penismail.edu"
+        user = User.all().filter("user_id = ", users.get_current_user().user_id()).get()
+        if user:
+            populate_form(form, user, User)
+        else:
+            form.email.data = users.get_current_user().email()
         return render_template("profile_edit_basic.html",
                                form=form)
 

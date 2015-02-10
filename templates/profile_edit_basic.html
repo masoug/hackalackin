@@ -21,10 +21,32 @@
   </h1>
 </div>
 
-<p>Tell us a little about yourself!</p>
+{% if form.errors %}
+<div class="alert alert-danger" role="alert">
+  Oops! There were some issues with the data you submitted:
+  <ul>
+    {% for f in form %}
+      {% if f.errors %}
+        {% for err in f.errors %}
+          <li><strong>{{ f.label.text }}</strong>: {{ err | e }}</li>
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+{% if update_success %}
+<div class="alert alert-success" role="alert">
+  Profile successfully updated! <a href="/profile/">Return to Profile</a>
+</div>
+{% endif %}
+
+
+<p>Tell us a little about yourself! You'll have to fill this out before you can start!</p>
 <form class="form-horizontal" action="/profile/edit/basic/" method="POST">
   {% for f in form %}
-  <div class="form-group">
+  <div class="form-group {% if f.errors %}has-error{% endif %}">
     {{ f.label(class="col-sm-2 control-label") }}
     <div class="col-sm-10">
       {% if f.type == "RadioField" %}
