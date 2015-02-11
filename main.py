@@ -24,7 +24,14 @@ def login_required(func):
 @app.route("/")
 def index():
     # TODO: In reality; query HackerProfile to get user nickname
-    return render_template("index.html", user=users.get_current_user(),
+    user = users.get_current_user()
+    if user:
+        h_user = User.all().filter("user_id =", user.user_id()).get()
+        if h_user:
+            user = h_user
+        else:
+            return redirect(url_for("profile_edit_basic"))
+    return render_template("index.html", user=user,
                            login_url=users.create_login_url(url_for("index")),
                            logout_url=users.create_logout_url(url_for("index")))
 
@@ -47,7 +54,9 @@ def profile_edit_basic():
         # validate and write new data
         form = ProfileEditBasicForm(request.form)
         if not form.validate():
-            return render_template("profile_edit_basic.html", form=form)
+            return render_template("profile_edit_basic.html",
+                                   logout_url=users.create_logout_url(url_for("index")),
+                                   form=form)
 
         # get user
         user = User.all().filter("user_id =", users.get_current_user().user_id()).get()
@@ -59,7 +68,9 @@ def profile_edit_basic():
 
         populate_entity(form, user, User)
         user.put()
-        return render_template("profile_edit_basic.html", form=form, update_success=True)
+        return render_template("profile_edit_basic.html",
+                               logout_url=users.create_logout_url(url_for("index")),
+                               form=form, update_success=True)
     else:
         # pre-populate existing fields
         form = ProfileEditBasicForm()
@@ -69,6 +80,7 @@ def profile_edit_basic():
         else:
             form.email.data = users.get_current_user().email()
         return render_template("profile_edit_basic.html",
+                               logout_url=users.create_logout_url(url_for("index")),
                                form=form)
 
 @app.errorhandler(404)

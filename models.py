@@ -7,9 +7,9 @@ class User(db.Model):
                  "occupation", "affiliation", "field", "location", "hackathons"]
 
     user_id = db.StringProperty(required=True)
-    created = db.DateProperty(auto_now_add=True)
+    created = db.DateTimeProperty(auto_now_add=True)
 
-    email = db.EmailProperty(required=True)
+    email = db.StringProperty(required=True)
     first_name = db.StringProperty(required=True)
     middle_name = db.StringProperty()
     last_name = db.StringProperty(required=True)

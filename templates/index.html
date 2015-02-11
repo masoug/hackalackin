@@ -21,7 +21,7 @@
 <div class="jumbotron">
   <div class="container">
     {% if user %}
-    <h1>Hai {{ user.nickname() }}</h1>
+    <h1>Hai {{ user.nickname | default(user.first_name, True) | e }},</h1>
     <p>
       Thanks for joining Hackalackin!
     </p>
@@ -42,7 +42,8 @@
   <div class="col-md-4">
     <h2>Update Your Profile</h2>
     <p>
-      Advertise yourself! Make {{ user.nickname() }} the new motherfucker on the block! Fill out your profile so other hackers, organizers, and sponsors see YOU!
+      Advertise yourself! Make {{ user.nickname | default(user.first_name, True) | e }} the new motherfucker on the block!
+      Fill out your profile so other hackers, organizers, and sponsors see YOU!
       This also helps <b>us</b> know <b>you</b> so we can make your experience at SB Hacks the best it can be!
     </p>
   </div>

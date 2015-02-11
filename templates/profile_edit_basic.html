@@ -50,10 +50,10 @@
     {{ f.label(class="col-sm-2 control-label") }}
     <div class="col-sm-10">
       {% if f.type == "RadioField" %}
-        {% for value, label, _ in f.iter_choices() %}
+        {% for value, label, selected in f.iter_choices() %}
           <div class="radio">
             <label>
-                <input type="radio" name="{{ f.id }}" id="{{ f.id }}" value="{{ value }}">{{ label }}
+                <input {% if selected %}checked{% endif %} type="radio" name="{{ f.id }}" id="{{ f.id }}" value="{{ value }}">{{ label }}
             </label>
           </div>
         {% endfor %}
@@ -69,6 +69,7 @@
   {% endfor %}
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
+      <a class="btn btn-default" href="/profile/" role="button">Cancel</a>
       <button type="submit" class="btn btn-success">Update</button>
     </div>
   </div>
