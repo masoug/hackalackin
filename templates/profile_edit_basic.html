@@ -10,7 +10,7 @@
 {% block login_nav %}
 <li><a href="/">Home</a></li>
 <li><a href="/profile/">Profile</a></li>
-<li><a href="{{ logout_url }}">Logout</a></li>
+<li><a href="/logout/">Logout</a></li>
 {% endblock %}
 
 {% block container %}
@@ -43,7 +43,7 @@
 {% endif %}
 
 
-<p>Tell us a little about yourself! You'll have to fill this out before you can start!</p>
+<p>Tell us a little about yourself!</p>
 <form class="form-horizontal" action="/profile/edit/basic/" method="POST">
   {% for f in form %}
   <div class="form-group {% if f.errors %}has-error{% endif %}">

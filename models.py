@@ -8,6 +8,7 @@ class User(db.Model):
 
     user_id = db.StringProperty(required=True)
     created = db.DateTimeProperty(auto_now_add=True)
+    last_updated = db.DateTimeProperty(auto_now=True)
 
     email = db.StringProperty(required=True)
     first_name = db.StringProperty(required=True)
@@ -20,6 +21,9 @@ class User(db.Model):
     field = db.StringProperty()
     location = db.StringProperty()
     hackathons = db.StringProperty()
+
+    # NOTE: for when/is we want to use our own profile picture system
+    # profile_pic_blobkey = db.StringProperty()
 
 
 def populate_entity(form, entity, entity_class):

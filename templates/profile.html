@@ -9,10 +9,11 @@
 
 {% block login_nav %}
 <li><a href="/">Home</a></li>
-<li><a href="{{ logout_url }}">Logout</a></li>
+<li><a href="/logout/">Logout</a></li>
 {% endblock %}
 
 {% block container %}
+{% if user %}
 <div class="page-header">
 <h1>{{ user.nickname | default(user.first_name, True) | e }} <small>Profile Settings</small></h1>
 </div>
@@ -22,8 +23,8 @@
 <div class="row">
   <div class="col-md-2">
     <p>
-      <a href="/profile/edit/pic/" title="Click image to change profile pic!">
-        <img src="http://placehold.it/150x150"/>
+      <a href="{{ user.email | gravatar_profile }}" target="_blank">
+        <img src="{{ user.email | gravatar_url(150) }}" width="150" height="150"/>
       </a>
     </p>
   </div>
@@ -130,5 +131,12 @@
   </div>
 </div>
 <!-- end hackathon info -->
+{% else %}
+
+<!-- user has not created profile yet -->
+<p><h1>Hey there! Looks like you haven't created your Hackalackin profile yet!</h1></p>
+<p><a class="btn btn-success btn-lg" href="/profile/edit/basic/" role="button">Create Profile!</a></p>
+
+{% endif %}
 
 {% endblock %}

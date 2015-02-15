@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Logout?</title>
+
+<!-- Custom styles for this template -->
+<link href="/static/css/starter-template.css" rel="stylesheet">
+{% endblock %}
+
+{% block login_nav %}
+<li><a href="/">Home</a></li>
+<li><a href="/profile/">Profile</a></li>
+<li><a href="{{ logout_url }}">Logout</a></li>
+{% endblock %}
+
+{% block container %}
+<div class="starter-template">
+  <h1>Are you sure?</h1>
+  <p>Since Hackalackin is attached to your Google account, logging out of Hackalackin logs you out of Google.</p>
+  <p>If you don't want to log out of your Google account but want to leave Hackalackin, just close the window.</p>
+  <h4>Are you sure you want to log out of Hackalackin (and Google)?</h4>
+  <p><a class="btn btn-danger btn-lg" href="{{ logout_url }}" role="button">Yes; log out of Hackalackin and Google!</a></p>
+  <p><a class="btn btn-default btn-lg" href="/" role="button">No. Return to homepage.</a></p>
+</div>
+{% endblock %}
