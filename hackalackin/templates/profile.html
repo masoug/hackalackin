@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>User Profile</title>
+
+<!-- Custom styles for this template -->
+<link href="/static/css/starter-template.css" rel="stylesheet">
+{% endblock %}
+
+{% block login_nav %}
+<li><a href="/logout/">Logout</a></li>
+{% endblock %}
+
+{% block container %}
+{% if user %}
+<div class="page-header">
+<h1>{{ user.nickname | default(user.first_name, True) | e }} <small>Profile Settings</small></h1>
+</div>
+
+<!-- Basic info -->
+<h3>Basic Info <small class="pull-right"><a href="/profile/edit/basic/">edit</a></small></h3>
+<div class="row">
+  <div class="col-md-2">
+    <p>
+      <a href="{{ user.email | gravatar_profile }}" target="_blank">
+        <img src="{{ user.email | gravatar_url(150) }}" width="150" height="150"/>
+      </a>
+    </p>
+  </div>
+  <div class="col-md-10">
+    <div class="row">
+      <div class="col-md-2">
+        <strong>Full Name</strong>
+      </div>
+      <div class="col-md-10">
+        {{ user.first_name | default("", True) | e }}
+        {{ user.middle_name | default("", True) | e }}
+        {{ user.last_name | default("", True) | e }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2"><strong>Nickname</strong></div><div class="col-md-10">{{ user.nickname | default("???", True) | e }}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-2"><strong>Gender</strong></div><div class="col-md-10">{{ user.gender | default("???", True) | e }}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-2"><strong>Email</strong></div><div class="col-md-10">{{ user.email | e }}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-2"><strong>Occupation</strong></div><div class="col-md-10">{{ user.occupation | default("???", True) | e }}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-2"><strong>Affiliation</strong></div><div class="col-md-10">{{ user.affiliation | default("???", True) | e }}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-2"><strong>Field</strong></div><div class="col-md-10">{{ user.field | default("???", True) | e }}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-2"><strong>Location</strong></div><div class="col-md-10">{{ user.location | default("Planet Earth", True) | e }}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-2"><strong>Hackathons</strong></div><div class="col-md-10">{{ user.hackathons | default("???", True) | e }}</div>
+    </div>
+  </div>
+</div>
+<!-- end basic info -->
+
+<!-- Detailed info -->
+<h3>Detailed Info <small class="pull-right"><a href="/profile/edit/detailed/">edit</a></small></h3>
+<div class="row">
+  <div class="col-lg-2"><strong>Social Networks</strong></div>
+  <div class="col-lg-10">
+    <a href="#">Github</a>
+    <a href="#">BitBucket</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">Facebook</a>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-2"><strong>Skills</strong></div>
+  <div class="col-lg-10">HTML, CSS, C, C++, Java, Python, Rails, Blender, Linux</div>
+</div>
+<div class="row">
+  <div class="col-lg-2"><strong>Resume/CV:</strong></div>
+  <div class="col-lg-10"><a href="#">myresume.pdf</a></div>
+</div>
+<div class="row">
+  <div class="col-lg-2"><strong>Shirt Size</strong></div>
+  <div class="col-lg-10">Small/Medium/Large/Extra Large</div>
+</div>
+<div class="row">
+  <div class="col-lg-2"><strong>Personal Description</strong></div>
+  <div class="col-lg-10">I am awesome</div>
+</div>
+<!-- end detailed info -->
+
+<!-- Hackathon info -->
+<h3>Events</h3>
+<div class="media">
+  <div class="media-left media-top">
+    <a href="#">
+      <img class="media-object" src="http://placehold.it/64x64">
+    </a>
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">
+      <a href="/event/abcedf0123456789">
+        SB Hacks 2016
+      </a>
+      <small class="text-success">Registration Open</small>
+    </h4>
+    We're back in full force! Code with the waves.
+  </div>
+</div>
+<div class="media">
+  <div class="media-left media-top">
+    <a href="#">
+      <img class="media-object" src="http://placehold.it/64x64">
+    </a>
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">
+      <a href="/event/abcedf0123456789">
+        SB Hacks 2015
+      </a>
+      <small class="text-danger">Registration Closed</small>
+    </h4>
+    Come make waves with us here in sunny Santa Barbara! Code on the beach, checkout beautiful downtown, do some yoga, and more!
+  </div>
+</div>
+<!-- end hackathon info -->
+{% else %}
+
+<!-- user has not created profile yet -->
+<p><h1>Hey there! Looks like you haven't created your Hackalackin profile yet!</h1></p>
+<p><a class="btn btn-success btn-lg" href="/profile/edit/basic/" role="button">Create Profile!</a></p>
+
+{% endif %}
+
+{% endblock %}

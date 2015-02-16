@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Hackalackin</title>
+
+<!-- Custom styles for this template -->
+<link href="/static/css/jumbotron.css" rel="stylesheet">
+{% endblock %}
+
+{% block login_nav %}
+{% if user %}
+  <li><a href="/profile/">Profile</a></li>
+  <li><a href="/logout/">Logout</a></li>
+{% else %}
+  {% if guser %}
+    <li><a href="/profile/edit/basic/">Create Profile!</a></li>
+    <li><a href="/logout/">Logout</a></li>
+  {% else %}
+    <li><a href="{{ login_url }}">Sign In</a></li>
+  {% endif %}
+{% endif %}
+{% endblock %}
+
+{% block jumbotron %}
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <div class="container">
+    {% if user %}
+    <h1>Hai {{ user.nickname | default(user.first_name, True) | e }},</h1>
+    <p>
+      Thanks for joining Hackalackin!
+    </p>
+    {% else %}
+    <h1>Yo Wassup Motherfucker?</h1>
+    <p>
+      Apply to hackathons with hackalackin!
+    </p>
+    <p><a class="btn btn-primary btn-lg" href="/profile/" role="button">Get Started! &raquo;</a></p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+{% block container %}
+{% if user %}
+<div class="row">
+  <div class="col-md-4">
+    <h2>Update Your Profile</h2>
+    <p>
+      Advertise yourself! Make {{ user.nickname | default(user.first_name, True) | e }} the new motherfucker on the block!
+      Fill out your profile so other hackers, organizers, and sponsors see YOU!
+      This also helps <b>us</b> know <b>you</b> so we can make your experience at SB Hacks the best it can be!
+    </p>
+  </div>
+  <div class="col-md-4">
+    <h2>Stay Up-to-Date</h2>
+    <p>
+      Follow us on Twitter, Facebook, Youtube, and Google+ to connect with fellow hackers and stay up-to-date with the latest SB Hacks news!
+    </p>
+ </div>
+  <div class="col-md-4">
+    <h2>Questions? Comments?</h2>
+    <p>
+      Confuzzled about anything? Need help finding things? If <big><b>anything</b></big> seems confusing or unclear, post to the forum!
+      We'll try to answer as many questions as we can while providing our hacker community with a centralized place to meet one another.
+    </p>
+  </div>
+</div>
+{% else %}
+<div class="row">
+  <div class="col-md-4">
+    <h2>Easy</h2>
+    <p>
+      All-in-one place for everything you need to get started hacking!
+    </p>
+  </div>
+  <div class="col-md-4">
+    <h2>Manage Your Hackathon</h2>
+    <p>
+      Centralized team coordination to make management of attendees, sponsorships, volunteers, etc.. a million times easier!
+    </p>
+ </div>
+  <div class="col-md-4">
+    <h2>Connect</h2>
+    <p>
+      Talk to your hackers! Answer forum questions, post update information, rules, schedules, challenges, prizes, answer questions, you name it and we got it!
+    </p>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

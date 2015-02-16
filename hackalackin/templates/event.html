@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block head %}
+  <title>View Event</title>
+    <!-- Custom styles for this template -->
+    <link href="/static/css/carousel.css" rel="stylesheet">
+{% endblock %}
+
+{% block login_nav %}
+<li><a href="/profile/">Profile</a></li>
+<li><a href="/logout/">Logout</a></li>
+{% endblock %}
+
+{% block jumbotron %}
+<!-- Carousel
+================================================== -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner" role="listbox">
+    <div class="item active">
+      <img src="/static/images/UCSB4.jpg" alt="First slide">
+      <div class="container">
+        <div class="carousel-caption">
+          <img src="/static/images/finallogo.png" width="200" height="200">
+          <h1>Ready to make waves?</h1>
+          <h2>SB Hacks 2015</h2>
+          <p><a class="btn btn-lg btn-success" href="#" role="button">Register!</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /.carousel -->
+{% endblock %}
+
+{% block container_class %}marketing{% endblock %}
+
+{% block container %}
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+
+  <!-- Three columns of text below the carousel -->
+  <div class="row">
+    <div class="col-lg-4">
+      <h2>UC Santa Barbara</h2>
+      <p>
+        SB Hacks will be held at the University of California Santa Barbara University Center.
+      </p>
+      <p><a class="btn btn-default" href="#" role="button">Map and Directions &raquo;</a></p>
+    </div><!-- /.col-lg-4 -->
+    <div class="col-lg-4">
+      <h2>Jan 30 - Feb 1</h2>
+      <p>Plan to arrive by 5pm for registration. Hacking begins at 9:30pm. Don't be late!</p>
+      <p><a class="btn btn-default" href="#" role="button">Schedules and Transportation &raquo;</a></p>
+    </div><!-- /.col-lg-4 -->
+    <div class="col-lg-4">
+      <h2>Event Details</h2>
+      <p>Free food, free events, free transportation, awesome prizes, it's all part of the SB Hacks experience.</p>
+      <p><a class="btn btn-default" href="#" role="button">View Details &raquo;</a></p>
+    </div><!-- /.col-lg-4 -->
+  </div><!-- /.row -->
+
+
+  <!-- START THE FEATURETTES -->
+
+  <hr class="featurette-divider">
+
+  <div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
+      <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+    </div>
+    <div class="col-md-5">
+      <img class="featurette-image img-responsive" src="https://placehold.it/500x500" alt="Generic placeholder image">
+    </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+  <div class="row featurette">
+    <div class="col-md-5">
+      <img class="featurette-image img-responsive" src="https://placehold.it/500x500" alt="Generic placeholder image">
+    </div>
+    <div class="col-md-7">
+      <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
+      <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+    </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+  <div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+      <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+    </div>
+    <div class="col-md-5">
+      <img class="featurette-image img-responsive" src="https://placehold.it/500x500" alt="Generic placeholder image">
+    </div>
+  </div>
+
+  <!-- /END THE FEATURETTES -->
+
+{% endblock %}

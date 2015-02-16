@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Update Profile Pic</title>
+
+<!-- Custom styles for this template -->
+<link href="/static/css/starter-template.css" rel="stylesheet">
+{% endblock %}
+
+{% block login_nav %}
+<li><a href="/">Home</a></li>
+<li><a href="/profile/">Profile</a></li>
+<li><a href="/logout/">Logout</a></li>
+{% endblock %}
+
+{% block container %}
+
+<div class="page-header">
+  <h1>Upload Profile Pic</h1>
+</div>
+
+{% if no_profile %}
+  <div class="alert alert-danger">
+    <b>Ooops!</b> You need to create a basic profile first before you can upload a profile picture!
+    <a href="/profile/edit/basic/">Make Profile</a>
+  </div>
+{% else %}
+  {% if upload_success %}
+  <div class="alert alert-success" role="alert">
+    Profile picture updated! <a href="/profile/">Return to Profile</a>
+  </div>
+  {% else %}
+  <div class="alert alert-info">
+    <em><b>Quick Tip:</b></em> For best results, upload a square 150&times;150 pixel image in PNG, JPEG, or GIF format.
+  </div>
+  {% endif %}
+
+  <form class="form-horizontal" action="{{ upload_url }}" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+      <div class="col-sm-10">
+        <input class="form-control" type="file" name="file"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-success">Upload</button>
+      </div>
+    </div>
+  </form>
+{% endif %}
+
+{% endblock %}
